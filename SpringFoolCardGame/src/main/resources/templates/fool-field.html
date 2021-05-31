@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <title>game Fool</title>
+    <style>
+      
+      table th, table td {padding: 5px;}
+      .row  {
+         font-style: italic;
+      }
+      .even-row {
+         color: black;
+      }
+      .odd-row {
+         color: blue;
+      }
+    </style>
+</head>
+ 
+<body bgcolor = "#006400">
+    <h1 align="center">Game Fool</h1>
+      <th:block th:if="${winner == ''}"> </th:block> 
+      <th:block th:if="${winner == 'Bot'}">
+		<h1 style="color:#ff0000"><a th:text="@{'Ура! Победил ваш противник'}"> winner message </a></h1>
+	 </th:block>
+	 <th:block th:if="${winner == 'Gamer'}">
+		<h1 style="color:#ff0000"> <a th:text="@{'Ура! Вы Победили! '}"> winner message </a> </h1>
+	 </th:block>
+    <a href="/new/game/fool"><button align="right" type="button">new game</button></a>
+   <table class="text">
+   <style>
+   table.text  {
+    width:  100%; /* Ширина таблицы */
+    border-spacing: 0; /* Расстояние между ячейками */
+   }
+  </style>
+  
+   <tr>
+    <td> <h2 >Hand Opponent: <span th:text="${bot}"></span><img th:src="@{/img/cards/PNG/back_cards-07.png}" width="100" height="80"/></h2>
+         <h2> <span th:text="${Queue}"></span> </h2> 
+         <h2> <span th:text="${PleerTurn}"></span> </h2> </td>
+    <td></td>
+    <td align="right"> <h2> Trump: <img th:src="@{/img/cards/PNG/__${trump.nameRankCard + trump.cardSuit}__.png}" width="50" height="80"/></h2>
+    	               <h2>Deck: <span th:text="${deckOfCards}"></span></h2> 
+    	               <h2>graveyard: <span th:text="${graveyard}"></span></h2></td>
+   </tr>
+   
+   <tr>
+     <td><h3>My cards:</h3></td>
+     <td>
+         <table>
+        	<tr>
+          		<th></th>
+        	</tr>   
+       	    <tr th:each="card : ${field}">
+                <img th:src="@{/img/cards/PNG/__${card.nameRankCard + card.cardSuit}__.png}" width="50" height="85"/>
+            </tr>          
+         </table>  
+    </td>
+    <td></td>
+   </tr>
+   
+   <tr>
+   	<td>
+   	   <table>
+   	      <tr>
+   	        <th></th>
+   	       </tr>
+           <tr th:each="card, state : ${handGamer}">   	
+             <a th:utext="${state.count}" th:href="@{/post/card/__${state.count}__}">No</a> 
+             	<a th:href="@{/post/card/__${state.count}__}">
+             		<img th:src="@{/img/cards/PNG/__${card.nameRankCard + card.cardSuit}__.png}" width="50" height="85"/>
+             	</a> 
+             </tr>           
+        </table>
+        </td>
+        </tr>
+   
+  </table> 
+ <table>
+ 	<tr>
+    <th> <a href="/take/card"><button type="button">Take Cards</button></a></th>
+    <th> <a href="/clear/field"><button type="button">pass</button></a> </th>
+   </tr>
+ </table>
+   
+</body>
+</html>
