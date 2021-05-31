@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Добавить лейбл</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body>
+      <h1>Create a new label:</h1>       
+      <form th:action="@{/labels/table/add}"
+         th:object="${addLabelRequest}" method="POST">
+         Name:
+         <input type="text" th:field="*{title}" />     
+         <br/>
+         <input type="submit" value="Create" />
+      </form>
+       
+      <br/>
+       <a href="/notes/table"><button type="button">all my notes</button></a>
+       
+      <!-- Check if errorMessage is not null and not empty -->
+       
+      <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color:red;font-style:italic;">
+         ...
+      </div>
+       
+   </body>
+</html>

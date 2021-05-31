@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Add Note</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+   </head>
+   <body>
+      <h1>Create a new note:</h1>
+       
+      <!--  
+         In Thymeleaf the equivalent of
+         JSP's ${pageContext.request.contextPath}/edit.html
+         would be @{/edit.html}         
+         -->
+          
+      <form th:action="@{/notes/table/add}"
+         th:object="${addNoteRequest}" method="POST">
+         Data:
+         <input type="date" th:field="*{startDateTime}" />    
+         <br/>
+         Title:
+         <input type="text" th:field="*{title}" />     
+         <br/>
+         Description:
+         <input type="text" th:field="*{description}" />     
+         <br/>
+         Full Text:
+         <input type="text" th:field="*{fullText}" />     
+         <br/>
+         
+         <table>
+              <thead>
+                <tr>
+                  <th>Locations</th>
+                  <th>
+                    <button type="submit" name="addLoc">Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="locRow,locRowStat : *{locations}">
+                  <td th:text="${locRowStat.count}">1</td>
+                  <td>
+                    <select th:field="*{locations[__${locRowStat.index}__]}">
+                      <option th:each="location : ${allLocations}" th:value="${location.id}" th:text="${location.name}">1</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button type="submit" name="removeLoc" th:value="${locRowStat.index}">Remove row</button>
+                  </td>
+                </tr>
+              </tbody>
+         </table>
+         <br/>
+         
+         <table>
+              <thead>
+                <tr>
+                  <th>Labels</th>
+                  <th>
+                    <button type="submit" name="addLabel">Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="labRow,labRowStat : *{labels}">
+                  <td th:text="${labRowStat.count}">1</td>
+                  <td>
+                    <select th:field="*{labels[__${labRowStat.index}__]}">
+                      <option th:each="label : ${allLabels}" th:value="${label.id}" th:text="${label.title}">1</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button type="submit" name="removeLabel" th:value="${labRowStat.index}">Remove row</button>
+                  </td>
+                </tr>
+              </tbody>
+         </table>
+         <br/>
+         
+          <table>
+              <thead>
+                <tr>
+                  <th>Persons</th>
+                  <th>
+                    <button type="submit" name="addPerson">Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="perRow,perRowStat : *{persons}">
+                  <td th:text="${perRowStat.count}">1</td>
+                  <td>
+                    <select th:field="*{persons[__${perRowStat.index}__]}">
+                      <option th:each="person : ${allPersons}" th:value="${person.id}" th:text="${person.name}">1</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button type="submit" name="removePerson" th:value="${perRowStat.index}">Remove row</button>
+                  </td>
+                </tr>
+              </tbody>
+         </table>
+         <br/>
+         <input type="submit" value="add" />
+      </form>
+      <a href="/notes/table"><button type="button">all my notes</button></a>
+   </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Label List</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body>
+      <h1>Label</h1>
+      <a href="/labels/table/add">Add label</a>
+      <br/><br/>
+      <div>
+         <table border="1">
+            <tr>
+               <th>Наименование</th>
+            </tr>
+            <tr th:each ="label : ${labels}">
+               <td th:utext="${label.title}">...</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

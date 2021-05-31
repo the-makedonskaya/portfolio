@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>find note</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body>
+      <h1>find note:</h1>   
+      <form th:action="@{/notes/find}" th:object="${searchRequest}" method="POST">
+         Date Start:
+         <input type="date" th:field="*{startDateTime}" />    
+         <br/>
+         
+         Date end:
+         <input type="date" th:field="*{endDateTime}" />    
+         <br/>
+         
+         Title:
+         <input type="text" th:field="*{title}" />     
+         <br/>
+         
+         Location:
+          <select id="loc" th:field="*{location}">
+          	<option th:value="-1"></option>
+		 	<option th:each="location : ${allLocations}" th:value="${location.name}" th:text="${location.name}">1</option>
+		 </select>
+         <br/> 
+         
+         label:
+         <select id="lab" th:field="*{label}">
+         	<option th:value="-1"></option>
+		 	<option th:each="label : ${allLabels}" th:value="${label.title}" th:text="${label.title}">1</option>
+		 </select>
+         <br/>   
+         
+         Person:
+         <select id="per" th:field="*{person}">
+         	<option th:value="-1"></option>
+		 	<option th:each="person : ${allPersons}" th:value="${person.name}" th:text="${person.name}">1</option>
+		 </select>
+         <br/>
+         
+         <button type="submit" name="find">Find note</button>
+         
+      </form>
+       
+      <br/>
+       <a href="/notes/table"><button type="button">all my notes</button></a>
+            
+      <div th:if="${filterNote != null}" >
+      	<table border="1">
+            <tr>
+               <th>Date</th>
+               <th>Title</th>
+               <th>Description</th>
+               <th>Label</th>
+               <th>Location</th>
+               <th>Person</th>        
+            </tr>
+            <tr th:each ="note : ${filterNote}">
+               <td th:utext="${note.startDateTime}">...</td>
+               <td th:utext="${note.title}">...</td>
+               <td th:utext="${note.description}">...</td>
+               <td th:utext="${note.labels}">...</td>
+               <td th:utext="${note.locations}">...</td>
+               <td th:utext="${note.persons}">...</td>
+            </tr>
+         </table>
+	  </div>
+       
+   </body>
+</html>

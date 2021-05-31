@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Note List</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body >
+      <h1 align="center"> My notes</h1>
+      <br/><br/>
+      <div>
+         <table border="1" >
+            <tr bgcolor="#FFFF00">
+               <th>Date</th>
+               <th>Title</th>
+               <th>Description</th>
+               <th>Label</th>
+               <th>Location</th>
+               <th>Person</th>        
+            </tr>
+            <tr th:each ="note : ${notes}">
+               <td th:utext="${note.startDateTime}">...</td>
+               <td th:utext="${note.title}">...</td>
+               <td th:utext="${note.description}">...</td>
+               <td th:utext="${note.labels}">...</td>
+               <td th:utext="${note.locations}">...</td>
+               <td th:utext="${note.persons}">...</td>
+               <td><a th:href="@{'delete/' + ${note.id}}"><button type="button">Delete</button></a></td>
+            </tr>
+         </table>
+      </div>
+      <br/><br/>
+      <a href="table/add"><button type="button">add note</button></a>
+      <a href="/labels/table/add"><button type="button">add label</button></a>
+      <a href="/notes/find"><button type="button">find my notes</button></a>
+      <br>
+      <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+      </form>
+   </body>
+</html>
