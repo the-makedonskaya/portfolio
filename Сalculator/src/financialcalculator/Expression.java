@@ -12,26 +12,33 @@ public class Expression {
 	private OperationEnum operation;
 	
 	private Double result;
-
+	
+	private String message;
+		
 	public Expression() {
 	}
 	
 	
 	public Expression(String str) {
-		str = getExpWithoutBrackets(str);
-		int operatorIndex = getCurrentOperatorIndex(str);
-		if (operatorIndex > 0 && operatorIndex < (str.length() - 1)) {
-			this.operation = OperationEnum.getBySign(Character.toString(str.charAt(operatorIndex)));
-			this.expLeft = new Expression(str.substring(0, operatorIndex));
-			this.expRight = new Expression(str.substring(operatorIndex + 1));
-		} else {
-			if (operatorIndex > 0) {
-				str = str.substring(0, operatorIndex);
+		str = str.replace(',', '.');
+		if (isCorrectExp(str)) {
+			str = getExpWithoutBrackets(str);
+			int operatorIndex = getCurrentOperatorIndex(str);
+			if (operatorIndex > 0 && operatorIndex < (str.length() - 1)) {
+				this.operation = OperationEnum.getBySign(Character.toString(str.charAt(operatorIndex)));
+				this.expLeft = new Expression(str.substring(0, operatorIndex));
+				this.expRight = new Expression(str.substring(operatorIndex + 1));
+			} else {
+				if (operatorIndex > 0) {
+					str = str.substring(0, operatorIndex);
+				}
+				this.result = Double.valueOf(str);
 			}
-			this.result = Double.valueOf(str);
-		}
-		if (this.getResult() == null) {
-			this.result = this.operation.apply(this.expLeft.getResult(), this.expRight.getResult());
+			if (this.getResult() == null) {
+				this.result = this.operation.apply(this.expLeft.getResult(), this.expRight.getResult());
+			}
+		} else {
+			this.message = "syntax error!";
 		}
 	}
 
@@ -56,8 +63,44 @@ public class Expression {
 		return result;
 	}
 	
+	public String getMessage() {
+		return message;
+	}
 	
-	public String getExpWithoutBrackets(String str) {
+	private boolean isCorrectExp(String str) {
+		if (str.isEmpty()) {
+			return false;
+		}
+		int leftBrackets = 0;
+		int rightBrackets = 0;
+		for (int i = 0; i < str.length(); i++) {
+			switch (str.charAt(i)) {
+			case '(':
+				leftBrackets++;
+				break;
+			case ')':
+				rightBrackets++;
+				break;
+			case '.':
+				if (i < str.length() - 1) {
+					if (str.charAt(i) == str.charAt(i + 1))
+						return false;
+				}
+				break;
+			}
+		}
+
+		if (leftBrackets == rightBrackets) {
+			return true;
+		}
+
+		return false;
+	}
+	
+
+	
+	
+	public String getExpWithoutBrackets(String str) {		
 		if (!str.contains("(")) {
 			return str;
 		}

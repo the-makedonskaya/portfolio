@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -81,8 +82,12 @@ public class SimpleGUI  {
 				String str = input.getText();
 				str = str.replaceAll("\\s", "");
 				Expression exp = new Expression(str);
-				String result = exp.getResult().toString();
-				input.setText(result);		
+				if (exp.getMessage() == null) {
+					String result = exp.getResult().toString();
+					input.setText(result);	
+				} else {
+					JOptionPane.showMessageDialog(new JPanel(), exp.getMessage(),"Error", JOptionPane.YES_NO_OPTION);
+				}
 			} else {
 				input.setText(input.getText() + command);
 			}
