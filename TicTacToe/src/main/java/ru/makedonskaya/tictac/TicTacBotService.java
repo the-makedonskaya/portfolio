@@ -39,11 +39,14 @@ public class TicTacBotService {
 			if (count % 2 == 0) {
 				array.get(row).set(col, "X");
 				count++;
+				if (count > 4) {
+					winnerCheck(array);
+				}
 				moveBot(row,col);
+				if (count > 4) {
+					winnerCheck(array);
+				}
 			} 
-			if (count > 4) {
-				winnerCheck(array);
-			}
 			if (count == 9 & winner == "") {
 				winner = "?";
 			}
@@ -87,8 +90,9 @@ public class TicTacBotService {
 					}
 				}
 			}
+			count++;
 		}
-		count++;
+		
 		
 		return array;
 	}
