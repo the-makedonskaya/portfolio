@@ -23,7 +23,7 @@
     <h1 align="center">Game Fool</h1>
       <th:block th:if="${winner == ''}"> </th:block> 
       <th:block th:if="${winner == 'Bot'}">
-		<h1 style="color:#ff0000"><a th:text="@{'Ура! Победил ваш противник'}"> winner message </a></h1>
+		<h1 style="color:#ff0000"><a th:text="@{'Победил ваш противник'}"> winner message </a></h1>
 	 </th:block>
 	 <th:block th:if="${winner == 'Gamer'}">
 		<h1 style="color:#ff0000"> <a th:text="@{'Ура! Вы Победили! '}"> winner message </a> </h1>

@@ -271,15 +271,26 @@ public class MainService implements IMainService {
 	//кнопка взять карты
 	@Override
 	public List<Card> takeCards() {
-		if (isPleerTurn()) {
-			handGamer.addAll(field);
-			field.clear();
+		if (!isQueuePleer()) {
+			if (isPleerTurn()) {
+				handGamer.addAll(field);
+				field.clear();
+			}
+			dealCards(handBot);
+			dealCards(handGamer);
+			isQueuePleer = false;
+			isPleerTurn = false;
+			playBot();
 		}
-		dealCards(handBot);
-		dealCards(handGamer);
-		isQueuePleer = false;
-		isPleerTurn = false;
-		playBot();
+//		if (isPleerTurn()) {
+//			handGamer.addAll(field);
+//			field.clear();
+//		}
+//		dealCards(handBot);
+//		dealCards(handGamer);
+//		isQueuePleer = false;
+//		isPleerTurn = false;
+//		playBot();
 						
 		return field;
 	}
