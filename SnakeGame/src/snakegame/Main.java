@@ -1,6 +1,5 @@
+package snakegame;
 import javax.swing.JFrame;
-
-import snakegame.SnakeGamePanel;
 
 public class Main{
 

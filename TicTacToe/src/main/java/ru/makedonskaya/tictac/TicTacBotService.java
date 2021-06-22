@@ -101,7 +101,7 @@ public class TicTacBotService {
 		List<String> stroka = new ArrayList<>();
 		stroka.addAll(array.get(row));
 		if (stroka.contains("-")) {
-			for(int i = 0; i < stroka.size(); i++) {
+			for (int i = 0; i < stroka.size(); i++) {
 				if (stroka.get(i).equals("-")) {
 					array.get(row).set(i, "O");
 					return 0;	
@@ -117,8 +117,8 @@ public class TicTacBotService {
 		Set<String> set3 = new HashSet<>();
 		Set<String> set4 = new HashSet<>();
 		
-		for(int i = 0; i < list.size(); i++) {
-			for(int j = 0; j < list.size(); j++) {
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
 				set1.add(list.get(i).get(j));
 				set2.add(list.get(j).get(i));
 			}

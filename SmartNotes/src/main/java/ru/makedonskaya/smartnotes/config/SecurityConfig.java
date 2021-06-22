@@ -10,13 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import ru.makedonskaya.smartnotes.service.UserService;
+import ru.makedonskaya.smartnotes.service.IUserService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {

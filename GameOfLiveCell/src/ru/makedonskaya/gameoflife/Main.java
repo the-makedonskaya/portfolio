@@ -1,9 +1,9 @@
-package gameoflife;
+package ru.makedonskaya.gameoflife;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ConwaysLifeGUI gui = new ConwaysLifeGUI();
+		GameOfLifeGUI gui = new GameOfLifeGUI();
 		gui.go();
 	}
 

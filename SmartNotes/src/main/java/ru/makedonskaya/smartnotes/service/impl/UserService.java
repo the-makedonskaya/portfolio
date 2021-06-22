@@ -17,15 +17,15 @@ import org.springframework.util.StringUtils;
 import ru.makedonskaya.smartnotes.entity.Role;
 import ru.makedonskaya.smartnotes.entity.User;
 import ru.makedonskaya.smartnotes.model.dto.UserRegistrationDto;
-import ru.makedonskaya.smartnotes.repository.UserRepository;
-import ru.makedonskaya.smartnotes.service.UserService;
+import ru.makedonskaya.smartnotes.repository.UserRepo;
+import ru.makedonskaya.smartnotes.service.IUserService;
 import ru.makedonskaya.smartnotes.user.MyUserPrincipal;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserService implements IUserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepo userRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;

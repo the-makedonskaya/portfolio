@@ -107,20 +107,20 @@ public class ThymeController {
 	
 	@RequestMapping(value = "/notes/table/add", params = { "addLoc" })
 	public String addLocationToNote(AddNoteRequest request, BindingResult bindingResult) {
-		request.getLocations().add(new Long(0));
+		request.getLocations().add(0L);
 		return "add-note";
 	}
 	
 	@RequestMapping(value = "/notes/table/add", params = { "addLabel" })
 	public String addLabelToNote(AddNoteRequest request, BindingResult bindingResult) {
-		request.getLabels().add(new Long(0));
+		request.getLabels().add(0L);
 		
 		return "add-note";
 	}
 	
 	@RequestMapping(value = "/notes/table/add", params = { "addPerson" })
 	public String addPersonToNote(AddNoteRequest request, BindingResult bindingResult) {
-		request.getPersons().add(new Long(0));
+		request.getPersons().add(0L);
 		
 		return "add-note";
 	}

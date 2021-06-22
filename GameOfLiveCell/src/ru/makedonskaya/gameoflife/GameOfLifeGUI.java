@@ -1,4 +1,4 @@
-package gameoflife;
+package ru.makedonskaya.gameoflife;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,25 +17,25 @@ import javax.swing.Timer;
 
 
 
-public class ConwaysLifeGUI {
+public class GameOfLifeGUI {
 
-	private LifeGameService service;
+	private GameOfLifeService service;
 
-	private static final int DEFAULT_WIDTH = 600;
+	private final int DEFAULT_WIDTH = 600;
 
-	private static final int DEFAULT_HEIGHT = 600;
+	private final int DEFAULT_HEIGHT = 600;
 	
-	private volatile boolean goNextGeneration = false;
+	private volatile boolean isPauseOrPlay = false;
 	
-	public ConwaysLifeGUI() {
-		this.service = new LifeGameService();
+	public GameOfLifeGUI() {
+		this.service = new GameOfLifeService();
 	}
 
 	public void go() {
 		EventQueue.invokeLater(() -> 
 		{
 			LifeFrame frame = new LifeFrame();
-			frame.setTitle("моя игра");
+			frame.setTitle("game of life");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 			frame.setResizable(false);
@@ -48,8 +48,8 @@ public class ConwaysLifeGUI {
 			JButton buttonPlay = new JButton("Play");
 			buttonPlay.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					goNextGeneration = !goNextGeneration;
-					buttonPlay.setText(goNextGeneration ? "Pause" : "Play");
+					isPauseOrPlay = !isPauseOrPlay;
+					buttonPlay.setText(isPauseOrPlay ? "Pause" : "Play");
 				}
 			});
 			
@@ -63,7 +63,7 @@ public class ConwaysLifeGUI {
 			JButton buttonNewGame = new JButton("New Game");
 			buttonNewGame.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					service.clearField();
+					service.setupNewFirstGeneration();
 					component.repaint();
 				}
 			});
@@ -85,7 +85,7 @@ public class ConwaysLifeGUI {
 			new Timer(150, new ActionListener() {
 				@Override
 		        public void actionPerformed(ActionEvent e) {
-					if (goNextGeneration) {
+					if (isPauseOrPlay) {
 						repaint();
 					}
 		        }
@@ -108,14 +108,10 @@ public class ConwaysLifeGUI {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.green);
 
-			List<List<Integer>> cells = service.getCells();
+			List<List<Integer>> cells = service.getLifeAreaCellsForPainting();
 
-			for (int i = 0; i < cells.size(); i++) {
-				for (int j = 0; j < cells.get(i).size(); j++) {
-					if (cells.get(i).get(j) == 7) {
-						g2.fillOval(i * 10, j * 10, 10, 10);
-					}
-				}
+			for(List<Integer> list : cells) {
+				g2.fillOval(list.get(0) * 10, list.get(1) * 10, 10, 10);
 			}
 		}
 

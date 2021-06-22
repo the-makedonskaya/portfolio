@@ -36,10 +36,4 @@ public interface INoteService {
 
 	List<NoteDto> findByDataFilter(LocalDateTime dataStart, LocalDateTime dataEnd);
 
-	
-
-	
-
-	
-
 }

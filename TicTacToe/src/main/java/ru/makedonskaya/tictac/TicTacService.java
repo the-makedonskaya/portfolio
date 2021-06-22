@@ -54,8 +54,8 @@ public class TicTacService {
 		Set<String> set3 = new HashSet<>();
 		Set<String> set4 = new HashSet<>();
 		
-		for(int i = 0; i < list.size(); i++) {
-			for(int j = 0; j < list.size(); j++) {
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
 				set1.add(list.get(i).get(j));
 				set2.add(list.get(j).get(i));
 			}

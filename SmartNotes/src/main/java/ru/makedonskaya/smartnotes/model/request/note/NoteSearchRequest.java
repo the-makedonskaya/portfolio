@@ -1,8 +1,5 @@
 package ru.makedonskaya.smartnotes.model.request.note;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;

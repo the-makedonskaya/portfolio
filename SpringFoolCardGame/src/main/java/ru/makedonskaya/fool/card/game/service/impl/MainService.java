@@ -281,17 +281,7 @@ public class MainService implements IMainService {
 			isQueuePleer = false;
 			isPleerTurn = false;
 			playBot();
-		}
-//		if (isPleerTurn()) {
-//			handGamer.addAll(field);
-//			field.clear();
-//		}
-//		dealCards(handBot);
-//		dealCards(handGamer);
-//		isQueuePleer = false;
-//		isPleerTurn = false;
-//		playBot();
-						
+		}						
 		return field;
 	}
 

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.makedonskaya.smartnotes.entity.User;
 import ru.makedonskaya.smartnotes.model.dto.UserRegistrationDto;
-import ru.makedonskaya.smartnotes.service.UserService;
+import ru.makedonskaya.smartnotes.service.IUserService;
 
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
