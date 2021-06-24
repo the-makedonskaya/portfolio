@@ -1,4 +1,4 @@
-package snakegame;
+package ru.makedonskaya.snakegame;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;

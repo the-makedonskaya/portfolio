@@ -1,4 +1,4 @@
-package snakegame;
+package ru.makedonskaya.snakegame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,6 +45,7 @@ public class SnakeGamePanel extends JPanel {
 	
 	public void start() {
 		snake.start((int) Math.round(Math.random() * getWidth()), (int) Math.round(Math.random() * getHeight()));
+		apple.getNewApple();
 	}
 	
 	private boolean isSnakeToAppleCollision() {

@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import snakegame.Snake;
+import ru.makedonskaya.snakegame.Snake;
 
 public class SpriteSnake {
 	

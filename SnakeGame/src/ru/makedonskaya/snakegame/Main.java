@@ -1,4 +1,4 @@
-package snakegame;
+package ru.makedonskaya.snakegame;
 import javax.swing.JFrame;
 
 public class Main{
