@@ -77,7 +77,7 @@ public class ThymeController {
 									request.getLabel(),
 									request.getPerson(),
 									StringUtils.isEmpty(request.getStartDateTime()) ? null : LocalDate.parse(request.getStartDateTime(), formatter),
-											request.getEndDateTime() != null ? LocalDate.parse(request.getEndDateTime(), formatter) : null);
+									StringUtils.isEmpty(request.getEndDateTime()) ? null : LocalDate.parse(request.getEndDateTime(), formatter));
 									
 		model.addAttribute("filterNote", result);
 

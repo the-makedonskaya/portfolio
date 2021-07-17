@@ -46,7 +46,7 @@ public interface NoteRepo extends JpaRepository<Note, Long>, JpaSpecificationExe
 	}
 	
 	static Specification<Note> titleContains(String title) {
-	    return (note, cq, cb) -> cb.like(note.get("title"), "%" + title + "%");
+	    return (note, query, criteriaBuilder) -> criteriaBuilder.like(note.get("title"), "%" + title + "%");
 	}
 		
 	static Specification<Note> locationContains (String locationsName) {
@@ -77,8 +77,16 @@ public interface NoteRepo extends JpaRepository<Note, Long>, JpaSpecificationExe
 	}
 	
 	static Specification<Note> tenantIdEqual(String tenantId) {
-		return (note, cq, cb) -> cb.equal(note.get("tenantId"), tenantId);
+		return (note, query, criteriaBuilder) -> criteriaBuilder.equal(note.get("tenantId"), tenantId);
 		
+	}
+
+	static Specification<Note> dataStart(LocalDate paramDataStart) {
+		return (note, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(note.get("startDateTime"), paramDataStart.atStartOfDay());
+	}
+
+	static Specification<Note> dataEnd(LocalDate paramDataEnd) {
+		return (note, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(note.get("startDateTime"), paramDataEnd.atStartOfDay());
 	}
 }
 

@@ -64,7 +64,8 @@ public class NoteService implements INoteService {
 				request.getTitle(), 
 				request.getDescription(),
 				StringUtils.isEmpty(request.getStartDateTime()) ? null : LocalDate.parse(request.getStartDateTime(), formatter).atStartOfDay(),
-				request.getEndDateTime() != null ? LocalDate.parse(request.getEndDateTime(), formatter).atStartOfDay() : null);
+				StringUtils.isEmpty(request.getEndDateTime()) ? null : LocalDate.parse(request.getEndDateTime(), formatter).atStartOfDay());
+			
 		
 		newNote.getLabels().addAll(labelService.getAllByIds(request.getLabels()));
 		newNote.getLocations().addAll(locationService.getAllByIds(request.getLocations()));
@@ -168,6 +169,10 @@ public class NoteService implements INoteService {
 	
 	@Override
 	public List<NoteDto> findByAnyFilter(String title, String location, String label, String person, LocalDate dataStart, LocalDate dataEnd) {
+		Boolean bothDatePresent = dataStart != null && dataEnd != null;
+		Boolean onlyStartDatePresents = dataStart != null && dataEnd == null;
+		Boolean onlyEndDatePresents = dataStart == null && dataEnd != null;
+		
 		Specification<Note> specification =  NoteRepo.NoteSpec();
 		if (isNotEmpty(title)) {
 			specification = specification.and(NoteRepo.titleContains(title));
@@ -181,9 +186,15 @@ public class NoteService implements INoteService {
 		if (isNotEmpty(person)) {
 			specification = specification.and(NoteRepo.personContains(person));
 		}
-		if (dataStart != null && dataEnd != null) {
+		if (bothDatePresent) {
 			specification = specification.and(NoteRepo.dataBetween(dataStart, dataEnd));
+		} else if (onlyStartDatePresents) {
+			specification = specification.and(NoteRepo.dataStart(dataStart));
+		} else if (onlyEndDatePresents) {
+			specification = specification.and(NoteRepo.dataEnd(dataEnd));
 		}
+			
+		
 		
 		specification = specification.and(NoteRepo.tenantIdEqual(tenantService.getCurrentTenantIdString()));
 	
